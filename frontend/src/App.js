@@ -1,9 +1,13 @@
 import "./App.css";
+import Footer from "./components/Footer/Footer";
+import Header from "./components/Header/Header";
 
-const App = () => {
-  const hello = "Ricardo";
-
-  return <div className="App">Hello!! {hello} </div>;
-};
+const App = () => (
+  <>
+    <Header />
+    <main style={{ minHeight: "93vh" }}></main>
+    <Footer />
+  </>
+);
 
 export default App;
