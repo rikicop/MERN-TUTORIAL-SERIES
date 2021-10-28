@@ -12,8 +12,8 @@ const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="/">
-          <Link to="/">Administrador de Notas</Link>
+        <Navbar.Brand as={Link} to="/">
+          Administrador de Notas
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -29,8 +29,8 @@ const Header = () => {
           </Nav>
 
           <Nav style={{ maxHeight: "100px" }} navbarScroll>
-            <Nav.Link href="/mynotes">
-              <Link to="/mynotes">Mis Notas</Link>
+            <Nav.Link as={Link} to="/mynotes">
+              Mis Notas
             </Nav.Link>
             <NavDropdown title="Ricardo" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Mi Perfil</NavDropdown.Item>
