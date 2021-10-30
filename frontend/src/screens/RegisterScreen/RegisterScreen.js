@@ -17,6 +17,7 @@ const RegisterScreen = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [picMessage, setPicMessage] = useState(null);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -43,6 +44,35 @@ const RegisterScreen = () => {
       } catch (error) {
         setError(error.response.data.message);
       }
+    }
+  };
+
+  const postDetails = (pics) => {
+    if (!pics) {
+      return setPicMessage("Please Select an Image...");
+    }
+    setPicMessage(null);
+
+    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+      const data = new FormData();
+
+      data.append("file", pics);
+      data.append("upload_preset", "notezipper");
+      data.append("cloud_name", "rikocode");
+      fetch("https://api.cloudinary.com/v1_1/rikocode/image/upload", {
+        method: "post",
+        body: data,
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setPic(data.url.toString());
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      return setPicMessage("Please Select an Image");
     }
   };
 
@@ -93,13 +123,13 @@ const RegisterScreen = () => {
             />
           </Form.Group>
 
-          {/*  {picMessage && (
+          {picMessage && (
             <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
-          )} */}
+          )}
           <Form.Group controlId="pic">
             <Form.Label>Profile Picture</Form.Label>
             <Form.File
-              /*  onChange={(e) => postDetails(e.target.files[0])} */
+              onChange={(e) => postDetails(e.target.files[0])}
               id="custom-file"
               type="image/png"
               label="Upload Profile Picture"
