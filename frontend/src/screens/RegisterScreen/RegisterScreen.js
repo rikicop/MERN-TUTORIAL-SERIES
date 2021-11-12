@@ -39,6 +39,7 @@ const RegisterScreen = () => {
           { name, pic, email, password },
           config
         );
+        console.log(data);
         setLoading(false);
         localStorage.setItem("userInfo", JSON.stringify(data));
       } catch (error) {
