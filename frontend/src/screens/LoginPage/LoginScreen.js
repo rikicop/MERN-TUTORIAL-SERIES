@@ -34,6 +34,7 @@ const LoginScreen = ({ history }) => {
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      setError(false);
     } catch (error) {
       setError(error.response.data.message);
       setLoading(false);

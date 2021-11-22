@@ -44,6 +44,7 @@ const RegisterScreen = () => {
         localStorage.setItem("userInfo", JSON.stringify(data));
       } catch (error) {
         setError(error.response.data.message);
+        setLoading(false);
       }
     }
   };
