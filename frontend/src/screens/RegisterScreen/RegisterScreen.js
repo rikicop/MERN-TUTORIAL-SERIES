@@ -3,10 +3,11 @@ import MainScreen from "../../components/MainScreen";
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
-import axios from "axios";
-import { useState } from "react";
+import { register } from "../../actions/userActions";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ history }) => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [pic, setPic] = useState(
@@ -15,38 +16,26 @@ const RegisterScreen = () => {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
   const [picMessage, setPicMessage] = useState(null);
+
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+
+  const { loading, error, userInfo } = userRegister;
+
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     if (password !== confirmpassword) {
-      setMessage("Passwords Do not Match");
-    } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-
-        setLoading(true);
-
-        const { data } = await axios.post(
-          "/api/users",
-          { name, pic, email, password },
-          config
-        );
-        console.log(data);
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-        setLoading(false);
-      }
-    }
+      setMessage("Passwords do not match");
+    } else dispatch(register(name, email, password, pic));
   };
 
   const postDetails = (pics) => {
