@@ -7,6 +7,7 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
+  USER_UPDATE_REQUEST,
 } from "../constants/userConstants";
 
 //La función de abajo es posible gracias a middleware thunk
@@ -76,4 +77,15 @@ export const register = (name, email, password, pic) => async (dispatch) => {
           : error.message,
     });
   }
+};
+
+export const updateProfile = (user) => async (dispatch, getState) => {
+  try{
+    dispatch({type:USER_UPDATE_REQUEST})
+
+    const{
+      userLogin:{userInfo},
+    }
+  }
+
 };
