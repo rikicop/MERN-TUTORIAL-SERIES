@@ -48,7 +48,7 @@ const Header = ({ setSearch }) => {
                 Mis Notas
               </Nav.Link>
               <NavDropdown title={userInfo?.name} id="navbarScrollingDropdown">
-                <NavDropdown.Item href="#action3">Mi Perfil</NavDropdown.Item>
+                <NavDropdown.Item href="/profile">Mi Perfil</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={logoutHandler}>
                   Logout
